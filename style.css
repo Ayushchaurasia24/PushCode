@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: lightblue;
+}
+h1{
+    margin-bottom: 20px;
+    color: #333;
+}
+input,select{
+    padding: 8px;
+    margin: 5px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+}
+input:focus, select:focus{
+    border-color: rgb(144, 7, 7);
+}
+button{
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0);
+    color: gold;
+    cursor: pointer;
+}
+button:hover{
+    background-color: ghostwhite;
+}
+.booking-item{
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}

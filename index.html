@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Booking App</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Bus Booking System</h1>
+
+    <!--Book Form -->
+    <form id="bookingForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <input type="text" id="phone" placeholder="Enter Phone no" required>
+
+        <select id="busNumber">
+            <option value="Bus 1">Bus 1</option>
+            <option value="Bus 2">Bus 2</option>
+            <option value="Bus 3">Bus 3</option>
+        </select>
+
+        <button type="submit">Book Ticket</button>
+    </form>
+
+    <!-- Filter section-->
+    <br>
+    <label>Filter by Bus:</label>
+    <select id="filter">
+        <option value="All">All</option>
+        <option value="Bus 1">Bus 1</option>
+        <option value="Bus 2">Bus 2</option>
+        <option value="Bus 3">Bus 3</option>
+
+    </select>
+    <hr>
+
+    <!--Booking display area-->
+    <div id="bookingList"></div> <!--js dynamically insert rec here-->
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
