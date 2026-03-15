@@ -8,24 +8,37 @@ const server = http.createServer((req,res) =>{
 
     if(url === "/"){
 
-        res.setHeader("Content-Type", "text/html");
+        fs.readFile("message.txt", (err, data)=>{
 
-        res.write(`
-            <html>
-            <head><title>Enter Message</title></head>
+            let messages = "";
 
-            <body>
+            if(data){
+                messages = data.toString();
+            }
 
-                <form action="/message" method="POST">
-                    <input type="text" name="message"/>
-                    <button type="submit">add</button>
-                </form>
+            res.setHeader("Content-Type", "text/html");
 
-            </body>
-            </html>
-        `);
+            res.write(`
+                <html>
+                <head><title>Enter Message</title></head>
 
-        res.end();
+                <body>
+
+                    <h2>Messages</h2>
+                    <p>${messages}</p>
+
+                    <form action="/message" method="POST">
+                        <input type="text" name="message"/>
+                        <button type="submit">add</button>
+                    </form>
+
+                </body>
+                </html>
+            `);
+
+            res.end();
+        });
+
     }
 
     else if(url === "/message" && method === "POST"){
@@ -44,7 +57,7 @@ const server = http.createServer((req,res) =>{
 
             const message = formData.split("=")[1];
 
-            fs.writeFile("message.txt",message,(err)=>{
+            fs.appendFile("message.txt", message + "\n", (err)=>{
 
                 res.statusCode = 302;
                 res.setHeader("Location","/");
