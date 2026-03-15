@@ -1,43 +1,63 @@
-const http = require('http'); //import kara built-in http module node js se
+const http = require("http");
+const fs = require("fs");
 
-//creating http server
-//callback fn har bar request aane pr run krega
-const server = http.createServer((req, res)=>{
+const server = http.createServer((req,res) =>{
 
-    //setting response header jo browser ko batega ki response html hai
-    res.setHeader('Content-Type', 'text/html');
-    
-    //check krega agr url '/' h kya? agar hn to local host pr run kr raha hoga
-    if(req.url === '/'){   //200 means successful
+    const url = req.url;
+    const method = req.method;
 
-        res.end("<h1>Hello World</h1>"); //send req to browser and finish req
+    if(url === "/"){
+
+        res.setHeader("Content-Type", "text/html");
+
+        res.write(`
+            <html>
+            <head><title>Enter Message</title></head>
+
+            <body>
+
+                <form action="/message" method="POST">
+                    <input type="text" name="message"/>
+                    <button type="submit">add</button>
+                </form>
+
+            </body>
+            </html>
+        `);
+
+        res.end();
     }
-    else if(req.url === '/pizza'){
 
-        res.end('<h1>Pizza</h1>');
+    else if(url === "/message" && method === "POST"){
+
+        const body = [];
+
+        req.on("data",(chunk)=>{
+            body.push(chunk);
+        });
+
+        req.on("end",()=>{
+
+            const buffer = Buffer.concat(body);
+
+            const formData = buffer.toString();
+
+            const message = formData.split("=")[1];
+
+            fs.writeFile("message.txt",message,(err)=>{
+
+                res.statusCode = 302;
+                res.setHeader("Location","/");
+                res.end();
+
+            });
+
+        });
+
     }
-    else if(req.url === '/home'){
 
-        res.end('<h1>Home</h1>');
-    }
-    else if(req.url === '/about'){
-
-        res.end('<h1>About us</h1>');
-    }
-    else if(req.url === '/node'){
-
-        res.end('<h1>node js proj</h1>');
-    }
-    else{
-        res.statusCode = 404;
-
-        res.end('<h1>Page Not Found :(</h1>');
-    }
-     
-
-})
-
-let port = 3000;
-server.listen(port, ()=> {
-    console.log("Server is runing on port 3000");
 });
+
+server.listen(3000);
+
+console.log("server runs on http://localhost:3000");
