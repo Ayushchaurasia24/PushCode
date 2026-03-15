@@ -1,13 +1,12 @@
 const http = require("http");
 
-const routes = require("./routes");
+const server = http.createServer((req, res)=>{
 
-routes.testFunction();
-
-const server = http.createServer(routes.handler);
+    if(req.url === "/"){
+        res.end(`<h1>hello</h1> <h2>ayush</h2>`)
+    }
+})
 
 server.listen(3000, ()=>{
-   console.log("server runs on http://localhost:3000"); 
-});
-
-
+    console.log("server runs");
+})
